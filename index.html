@@ -4,146 +4,549 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kappity - Conheça seus padrões</title>
+    <meta name="description" content="Descubra seus padrões únicos de decisão e evolua como pessoa">
+    <meta name="keywords" content="autoconhecimento, padrões pessoais, desenvolvimento, evolução">
     <style>
+        :root {
+            /* Paleta Inspiradora e Acolhedora */
+            --primary-color: #4a5568;          
+            --secondary-color: #718096;        
+            --accent-blue: #63b3ed;            
+            --accent-red: #fc8181;             
+            --accent-green: #68d391;           /* Para CTAs positivos */
+            --accent-purple: #b794f6;          /* Para elementos especiais */
+            --text-color: #2d3748;             
+            --text-light: #718096;             
+            --bg-primary: #ffffff;             
+            --bg-secondary: #f7fafc;           
+            --bg-tertiary: #edf2f7;            
+            --border-color: #e2e8f0;           
+            --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-strong: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.2s ease;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
         }
-
+        
         body {
-            font-family: 'Segoe UI', system-ui;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: var(--bg-secondary);
+            color: var(--text-color);
+            line-height: 1.6;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            font-size: 16px;
         }
-
+        
         .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: var(--bg-primary);
+            border-radius: 16px;
+            box-shadow: var(--shadow-strong);
             overflow: hidden;
-            max-width: 500px;
+            max-width: 480px;
             width: 100%;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
         }
-
+        
         .header {
-            background: #2c3e50;
-            color: white;
-            padding: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-primary);
+            padding: 32px 24px;
             text-align: center;
         }
-
+        
         .logo {
-            font-size: 3em;
-            margin-bottom: 10px;
+            font-size: 2.5em;
+            margin-bottom: 8px;
+            filter: grayscale(0.2);
         }
-
+        
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: -0.025em;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+        
         .content {
-            padding: 30px;
+            padding: 32px 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
-
-        /* TELA CADASTRO */
+        
+        /* FORMULÁRIO DE ENTRADA */
+        .form-section h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .form-section p {
+            color: var(--text-light);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+        
         .form-group {
             margin-bottom: 20px;
         }
-
+        
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ecf0f1;
-            border-radius: 10px;
-            font-size: 1em;
-            transition: border 0.3s ease;
-        }
-
-        input:focus, select:focus {
-            border-color: #3498db;
-            outline: none;
-        }
-
-        .btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 1.1em;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-        }
-
-        /* TELA JOGO */
-        #tela-jogo {
-            display: none;
-            text-align: center;
-        }
-
-        .escolhas {
-            display: flex;
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        .btn-escolha {
-            flex: 1;
-            padding: 25px;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.3em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .azul { 
-            background: #3498db; 
-            color: white; 
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--text-color);
+            font-size: 0.9rem;
         }
         
-        .vermelho { 
-            background: #e74c3c; 
-            color: white; 
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--bg-primary);
+            color: var(--text-color);
         }
-
-        .btn-escolha:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1);
+        
+        input:focus, select:focus {
+            border-color: var(--accent-blue);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.1);
         }
-
-        .contador {
-            font-size: 1.1em;
-            color: #7f8c8d;
-            margin: 20px 0;
+        
+        input::placeholder {
+            color: var(--text-light);
         }
-
-        .resultado {
+        
+        .btn {
+            background: linear-gradient(135deg, var(--accent-blue), #4299e1);
+            color: var(--bg-primary);
+            border: none;
+            padding: 14px 24px;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            font-weight: 500;
+            box-shadow: var(--shadow-light);
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-medium);
+            background: linear-gradient(135deg, #4299e1, var(--accent-blue));
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        /* CTA ESPECIAL */
+        .btn-cta {
+            background: linear-gradient(135deg, var(--accent-green), #48bb78);
+            color: var(--bg-primary);
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            font-weight: 600;
+            box-shadow: var(--shadow-medium);
+            margin-top: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(104, 211, 145, 0.3);
+            background: linear-gradient(135deg, #48bb78, #38a169);
+        }
+        
+        /* INTERFACE DE DECISÃO */
+        .decision-interface {
             display: none;
-            margin-top: 30px;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            flex: 1;
+        }
+        
+        .participant-info {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        
+        .participant-info h2 {
+            color: var(--primary-color);
+            margin-bottom: 4px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .participant-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .decision-buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: 16px 0;
+            position: relative;
+            min-height: 240px;
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            background-color: var(--bg-tertiary);
+            background-image: 
+                radial-gradient(circle at 25% 25%, var(--bg-primary) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, var(--bg-primary) 2px, transparent 2px);
+            background-size: 24px 24px;
+        }
+        
+        .btn-decision {
+            width: 130px;
+            height: 75px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-medium);
+            position: absolute;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.025em;
+        }
+        
+        .btn-blue {
+            background: linear-gradient(135deg, var(--accent-blue), #4299e1);
+            color: var(--bg-primary);
+        }
+        
+        .btn-blue:hover {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            transform: scale(1.03) translateY(-2px);
+            box-shadow: 0 6px 12px rgba(99, 179, 237, 0.25);
+        }
+        
+        .btn-red {
+            background: linear-gradient(135deg, var(--accent-red), #f56565);
+            color: var(--bg-primary);
+        }
+        
+        .btn-red:hover {
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+            transform: scale(1.03) translateY(-2px);
+            box-shadow: 0 6px 12px rgba(252, 129, 129, 0.25);
+        }
+        
+        .progress-container {
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .progress-container h3 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: var(--bg-tertiary);
+            border-radius: 4px;
+            margin: 12px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), #4299e1);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+            position: relative;
+        }
+        
+        .timer {
+            font-size: 1.1rem;
+            margin: 12px 0;
+            color: var(--accent-red);
+            font-weight: 600;
+        }
+        
+        .feedback {
+            font-size: 1.1rem;
+            font-weight: 500;
+            min-height: 28px;
+            margin: 12px 0;
+            transition: var(--transition);
+        }
+        
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border-color);
+            transform: translateY(-1px);
+        }
+        
+        /* TELA DE RESULTADO */
+        .completion-section {
+            display: none;
+            text-align: center;
+            flex: 1;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 20px;
+        }
+        
+        .completion-section .emoji {
+            font-size: 3.5em;
+            margin-bottom: 16px;
+            filter: grayscale(0.1);
+        }
+        
+        .completion-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        
+        .completion-section p {
+            color: var(--text-light);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        /* RELATÓRIO IA */
+        .ai-report-section {
+            margin: 20px 0;
             padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-purple);
             text-align: left;
         }
-
+        
+        .ai-report-section h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ai-report-content {
+            color: var(--text-color);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        
+        .ai-report-content p {
+            margin-bottom: 12px;
+        }
+        
+        .ai-report-content strong {
+            color: var(--primary-color);
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border-color);
+            border-radius: 50%;
+            border-top-color: var(--accent-purple);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* CTA SECTION */
+        .cta-section {
+            margin-top: 24px;
+            padding: 24px;
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 12px;
+            border: 2px solid var(--accent-green);
+            text-align: center;
+        }
+        
+        .cta-section h3 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .cta-section p {
+            color: var(--text-color);
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .download-info {
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: var(--border-radius);
+            text-align: center;
+            border-left: 4px solid var(--accent-blue);
+        }
+        
+        .download-info p {
+            margin: 6px 0;
+            color: var(--text-color);
+            font-size: 0.85rem;
+        }
+        
+        .manual-download-link {
+            word-break: break-all;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+        
+        .manual-download-link:hover {
+            text-decoration: underline;
+        }
+        
         .hidden {
-            display: none;
+            display: none !important;
+        }
+        
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            
+            .container {
+                margin: 0;
+                max-width: none;
+                min-height: 100vh;
+            }
+            
+            .btn-decision {
+                width: 110px;
+                height: 65px;
+                font-size: 1rem;
+            }
+            
+            .content {
+                padding: 24px 20px;
+            }
+            
+            .decision-buttons-container {
+                min-height: 200px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .header {
+                padding: 24px 20px;
+            }
+            
+            .logo {
+                font-size: 2.2em;
+            }
+        }
+        
+        /* ANIMAÇÕES SUAVES */
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(16px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .slide-out {
+            animation: slideOut 0.3s ease-in forwards;
+        }
+        
+        @keyframes slideOut {
+            to { 
+                opacity: 0; 
+                transform: translateX(-20px); 
+            }
+        }
+        
+        /* ESTADOS DE VALIDAÇÃO */
+        .input-error {
+            border-color: var(--accent-red) !important;
+            box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.1) !important;
+        }
+        
+        .input-success {
+            border-color: var(--accent-green) !important;
+            box-shadow: 0 0 0 3px rgba(104, 211, 145, 0.1) !important;
         }
     </style>
 </head>
@@ -157,23 +560,23 @@
 
         <div class="content">
             <!-- TELA CADASTRO -->
-            <div id="tela-cadastro">
-                <h2>Antes de começar</h2>
-                <p>Preencha rapidamente para personalizarmos sua experiência:</p>
+            <div id="tela-cadastro" class="form-section fade-in">
+                <h2>Descubra quem você é</h2>
+                <p>Preencha rapidamente para personalizarmos sua jornada de autoconhecimento:</p>
                 
                 <div class="form-group">
                     <label for="nome">Seu nome ou apelido:</label>
-                    <input type="text" id="nome" placeholder="Como prefere ser chamado?">
+                    <input type="text" id="nome" placeholder="Como prefere ser chamado?" maxlength="50" autocomplete="given-name">
                 </div>
 
                 <div class="form-group">
                     <label for="idade">Idade:</label>
-                    <input type="number" id="idade" min="12" max="120" placeholder="Sua idade">
+                    <input type="number" id="idade" min="12" max="120" placeholder="Sua idade" autocomplete="age">
                 </div>
 
                 <div class="form-group">
                     <label for="genero">Gênero:</label>
-                    <select id="genero">
+                    <select id="genero" required autocomplete="sex">
                         <option value="">Selecione</option>
                         <option value="homem">Homem</option>
                         <option value="mulher">Mulher</option>
@@ -183,7 +586,7 @@
 
                 <div class="form-group">
                     <label for="emocao">Como está se sentindo agora?</label>
-                    <select id="emocao">
+                    <select id="emocao" required>
                         <option value="">Selecione</option>
                         <option value="cansado">Cansado(a)</option>
                         <option value="feliz">Feliz</option>
@@ -194,124 +597,841 @@
                     </select>
                 </div>
 
-                <button class="btn" onclick="iniciarJogo()">Começar a descobrir meus padrões</button>
+                <div class="form-group">
+                    <label for="decisoes">Quantas decisões quer fazer? (mínimo 30)</label>
+                    <input type="number" id="decisoes" value="50" min="30" max="200" placeholder="Recomendamos 50 para melhor análise">
+                </div>
+
+                <div class="form-group">
+                    <label for="timer">Usar temporizador por decisão?</label>
+                    <select id="timer">
+                        <option value="no">Não usar timer</option>
+                        <option value="3">3 segundos</option>
+                        <option value="5">5 segundos</option>
+                        <option value="10">10 segundos</option>
+                    </select>
+                </div>
+
+                <button class="btn" onclick="iniciarJogo()">Começar minha jornada</button>
             </div>
 
             <!-- TELA JOGO -->
-            <div id="tela-jogo">
-                <h2 id="saudacao">Vamos começar!</h2>
-                <p>Escolha instantaneamente. Sem pensar muito.</p>
+            <div id="tela-jogo" class="decision-interface">
+                <div class="participant-info">
+                    <h2 id="saudacao">Vamos começar!</h2>
+                    <p id="instrucoes">Escolha instantaneamente. Siga sua intuição.</p>
+                </div>
                 
-                <div class="escolhas">
-                    <button class="btn-escolha azul" onclick="escolher('azul')">AZUL</button>
-                    <button class="btn-escolha vermelho" onclick="escolher('vermelho')">VERMELHO</button>
+                <div class="progress-container">
+                    <h3>Decisões: <span id="decisoes-count">0</span>/<span id="total-decisoes">50</span></h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="timer" id="timer-display" style="display: none;">
+                        Tempo restante: <span id="time-left">0</span>s
+                    </div>
+                    <div class="feedback" id="feedback"></div>
                 </div>
-
-                <div class="contador">
-                    Rodada: <span id="rodada">1</span>/10
+                
+                <div class="decision-buttons-container" id="buttons-container">
+                    <!-- Botões serão posicionados aleatoriamente via JavaScript -->
                 </div>
+                
+                <div class="actions">
+                    <button class="btn-secondary" id="finish-btn" onclick="finalizarJogo()">Finalizar Teste</button>
+                </div>
+            </div>
 
-                <div class="resultado" id="resultado">
-                    <h2>🎯 Seu padrão detectado</h2>
-                    <p id="analise">Analisando suas escolhas...</p>
-                    <button class="btn" onclick="reiniciar()">Descobrir mais padrões</button>
+            <!-- TELA RESULTADO -->
+            <div id="tela-resultado" class="completion-section">
+                <div class="emoji">🎯</div>
+                <h2>Parabéns! Você descobriu seus padrões únicos</h2>
+                <p>Foram registradas <span id="final-decision-count">0</span> decisões que revelam muito sobre você.</p>
+                
+                <!-- RELATÓRIO IA -->
+                <div class="ai-report-section" id="ai-report-section">
+                    <h3>
+                        <span>🤖</span>
+                        Seu Relatório Personalizado
+                    </h3>
+                    <div class="ai-report-content" id="ai-report-content">
+                        <div class="loading-spinner"></div>
+                        <span style="margin-left: 8px;">Analisando seus padrões únicos...</span>
+                    </div>
+                </div>
+                
+                <!-- CTA PRINCIPAL -->
+                <div class="cta-section" id="cta-section" style="display: none;">
+                    <h3>🚀 Se conheça e seja melhor</h3>
+                    <p><strong>Quer descobrir ainda mais sobre você?</strong><br>
+                    Tenha acesso a testes ilimitados, relatórios detalhados e insights que vão transformar sua vida.</p>
+                    <button class="btn-cta" onclick="redirectToPremium()">
+                        Quero testes e relatórios ilimitados
+                    </button>
+                </div>
+                
+                <div class="actions" style="margin-top: 20px;">
+                    <button class="btn-secondary" id="download-btn" onclick="downloadCSV()">Baixar Meus Dados</button>
+                    <button class="btn-secondary" onclick="reiniciar()">Fazer Novo Teste</button>
+                </div>
+                
+                <div class="download-info" id="download-info" style="display: none;">
+                    <p><strong>📱 Para dispositivos móveis:</strong></p>
+                    <p>Se o download não iniciar automaticamente:</p>
+                    <p>1. Toque no link abaixo e mantenha pressionado</p>
+                    <p>2. Selecione "Download do link" ou opção similar</p>
+                    <a id="manual-download-link" href="#" class="manual-download-link">Link para download</a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        let rodada = 1;
-        let escolhas = [];
-        const totalRodadas = 10;
-        let usuario = {};
-
-        // BANCO DE ANÁLISES PERSONALIZADAS
-        const analises = {
-            azulDominante: [
-                "Você busca estabilidade e confiança nas suas decisões",
-                "Seu padrão mostra preferência por abordagens metódicas",
-                "Tende a analisar antes de agir, valorizando segurança"
-            ],
-            vermelhoDominante: [
-                "Sua intuição guia muitas das suas escolhas",
-                "Padrão de ação rápida e adaptabilidade",
-                "Você segue mais a emoção do momento que planos fixos"
-            ],
-            equilibrado: [
-                "Raro equilíbrio entre razão e emoção",
-                "Você se adapta ao contexto de forma notável",
-                "Nem sempre método, nem sempre impulso - sabedoria contextual"
-            ]
+        // ===== KAPPITY - FERRAMENTA DE EVOLUÇÃO PESSOAL =====
+        // Versão: 2.0 - Foco em desenvolvimento pessoal e conversão
+        // Estratégia: Porta de entrada amigável para o MCD
+        
+        // Configuração da sessão
+        let currentSession = {
+            participantName: "",
+            age: "",
+            gender: "",
+            emotion: "",
+            decisionCount: 50,
+            useTimer: "no",
+            timerValue: 0,
+            decisions: [],
+            currentDecision: 0,
+            startTime: null,
+            endTime: null,
+            timerInterval: null,
+            sessionId: null,
+            userAgent: navigator.userAgent,
+            screenResolution: `${screen.width}x${screen.height}`,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
         };
-
+        
+        // Elementos da DOM
+        const telaCadastro = document.getElementById('tela-cadastro');
+        const telaJogo = document.getElementById('tela-jogo');
+        const telaResultado = document.getElementById('tela-resultado');
+        const buttonsContainer = document.getElementById('buttons-container');
+        const downloadInfo = document.getElementById('download-info');
+        const manualDownloadLink = document.getElementById('manual-download-link');
+        
+        // Campos do formulário
+        const nomeInput = document.getElementById('nome');
+        const idadeInput = document.getElementById('idade');
+        const generoSelect = document.getElementById('genero');
+        const emocaoSelect = document.getElementById('emocao');
+        const decisoesInput = document.getElementById('decisoes');
+        const timerSelect = document.getElementById('timer');
+        
+        // Elementos da interface de jogo
+        const saudacao = document.getElementById('saudacao');
+        const instrucoes = document.getElementById('instrucoes');
+        const decisoesCount = document.getElementById('decisoes-count');
+        const totalDecisoes = document.getElementById('total-decisoes');
+        const progressFill = document.getElementById('progress-fill');
+        const timerDisplay = document.getElementById('timer-display');
+        const timeLeft = document.getElementById('time-left');
+        const feedback = document.getElementById('feedback');
+        const finalDecisionCount = document.getElementById('final-decision-count');
+        
+        // Elementos do relatório IA
+        const aiReportContent = document.getElementById('ai-report-content');
+        const ctaSection = document.getElementById('cta-section');
+        
+        // ===== CONFIGURAÇÃO GPT API =====
+        // Substitua pela sua chave da OpenAI
+        const OPENAI_API_KEY = 'SUA_CHAVE_OPENAI_AQUI';
+        const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+        
+        // ===== FUNÇÕES PRINCIPAIS =====
+        
+        /**
+         * Iniciar o jogo com validação
+         */
         function iniciarJogo() {
-            // VALIDAR DADOS
-            const nome = document.getElementById('nome').value;
-            const idade = document.getElementById('idade').value;
-            const genero = document.getElementById('genero').value;
-            const emocao = document.getElementById('emocao').value;
+            const nome = nomeInput.value.trim();
+            const idade = parseInt(idadeInput.value);
+            const genero = generoSelect.value;
+            const emocao = emocaoSelect.value;
+            const numDecisoes = parseInt(decisoesInput.value);
+            const timerConfig = timerSelect.value;
 
-            if (!nome || !idade || !genero || !emocao) {
-                alert('Por favor, preencha todos os campos para começarmos!');
+            if (!validateInput(nome, 'nome', 2, 50)) return;
+            if (!validateInput(idade, 'idade', 12, 120)) return;
+            if (!validateSelect(genero, 'genero')) return;
+            if (!validateSelect(emocao, 'emocao')) return;
+            if (!validateInput(numDecisoes, 'decisoes', 30, 200)) return;
+
+            currentSession = {
+                ...currentSession,
+                participantName: nome,
+                age: idade,
+                gender: genero,
+                emotion: emocao,
+                decisionCount: numDecisoes,
+                useTimer: timerConfig,
+                timerValue: parseInt(timerConfig) || 0,
+                startTime: new Date(),
+                sessionId: generateSessionId()
+            };
+            
+            saudacao.textContent = `Vamos lá, ${nome}!`;
+            instrucoes.textContent = currentSession.timerValue > 0 ? 
+                `Você tem ${currentSession.timerValue} segundos por decisão.` : 
+                'Escolha instantaneamente. Siga sua intuição.';
+            totalDecisoes.textContent = numDecisoes;
+            
+            transitionToGame();
+        }
+        
+        /**
+         * Validação de inputs com feedback visual
+         */
+        function validateInput(value, fieldId, min, max) {
+            const field = document.getElementById(fieldId);
+            
+            if (fieldId === 'nome') {
+                if (!value || value.length < min || value.length > max) {
+                    showFieldError(field, `Nome deve ter entre ${min} e ${max} caracteres.`);
+                    return false;
+                }
+            } else {
+                if (!value || value < min || value > max) {
+                    showFieldError(field, `Valor deve estar entre ${min} e ${max}.`);
+                    return false;
+                }
+            }
+            
+            showFieldSuccess(field);
+            return true;
+        }
+        
+        function validateSelect(value, fieldId) {
+            const field = document.getElementById(fieldId);
+            
+            if (!value) {
+                showFieldError(field, 'Por favor, selecione uma opção.');
+                return false;
+            }
+            
+            showFieldSuccess(field);
+            return true;
+        }
+        
+        function showFieldError(field, message) {
+            field.classList.add('input-error');
+            field.classList.remove('input-success');
+            field.focus();
+            
+            setTimeout(() => {
+                field.classList.remove('input-error');
+            }, 3000);
+            
+            alert(message);
+        }
+        
+        function showFieldSuccess(field) {
+            field.classList.add('input-success');
+            field.classList.remove('input-error');
+            
+            setTimeout(() => {
+                field.classList.remove('input-success');
+            }, 2000);
+        }
+        
+        function transitionToGame() {
+            telaCadastro.classList.add('slide-out');
+            setTimeout(() => {
+                telaCadastro.style.display = 'none';
+                telaJogo.style.display = 'flex';
+                telaJogo.classList.add('fade-in');
+                prepareNextDecision();
+            }, 300);
+        }
+        
+        function generateSessionId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+        
+        /**
+         * Preparar próxima decisão
+         */
+        function prepareNextDecision() {
+            if (currentSession.currentDecision >= currentSession.decisionCount) {
+                finalizarJogo();
                 return;
             }
-
-            usuario = { nome, idade, genero, emocao };
             
-            // ATUALIZAR SAUDAÇÃO
-            document.getElementById('saudacao').textContent = `Vamos lá, ${nome}!`;
+            updateProgress();
+            clearPreviousState();
+            createRandomButtons();
             
-            // TROCAR TELAS
-            document.getElementById('tela-cadastro').style.display = 'none';
-            document.getElementById('tela-jogo').style.display = 'block';
-        }
-
-        function escolher(cor) {
-            // EFEITO VISUAL
-            const btn = document.querySelector(`.${cor}`);
-            btn.style.transform = 'scale(0.95)';
-            setTimeout(() => btn.style.transform = 'scale(1)', 150);
-
-            // REGISTRAR ESCOLHA
-            escolhas.push(cor);
-            
-            // ATUALIZAR RODADA
-            rodada++;
-            document.getElementById('rodada').textContent = rodada;
-
-            // VERIFICAR FIM DO JOGO
-            if (rodada > totalRodadas) {
-                finalizarJogo();
+            if (currentSession.useTimer !== "no") {
+                startTimer();
             }
         }
-
-        function finalizarJogo() {
-            // CALCULAR PADRÃO
-            const percentualAzul = (escolhas.filter(c => c === 'azul').length / totalRodadas) * 100;
+        
+        function updateProgress() {
+            decisoesCount.textContent = currentSession.currentDecision;
+            const progress = (currentSession.currentDecision / currentSession.decisionCount) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+        
+        function clearPreviousState() {
+            feedback.textContent = '';
+            feedback.style.color = '';
+            buttonsContainer.innerHTML = '';
+        }
+        
+        function createRandomButtons() {
+            const containerWidth = buttonsContainer.offsetWidth;
+            const containerHeight = buttonsContainer.offsetHeight;
+            const buttonWidth = 130;
+            const buttonHeight = 75;
+            const margin = 20;
             
-            let analise = '';
-            if (percentualAzul >= 60) {
-                analise = analises.azulDominante[Math.floor(Math.random() * analises.azulDominante.length)];
-            } else if (percentualAzul <= 40) {
-                analise = analises.vermelhoDominante[Math.floor(Math.random() * analises.vermelhoDominante.length)];
+            const positions = generateValidPositions(containerWidth, containerHeight, buttonWidth, buttonHeight, margin);
+            const shuffledPositions = positions.sort(() => Math.random() - 0.5);
+            
+            createButton('azul', 'AZUL', 'btn-blue', shuffledPositions[0]);
+            createButton('vermelho', 'VERMELHO', 'btn-red', shuffledPositions[1]);
+        }
+        
+        function generateValidPositions(containerWidth, containerHeight, buttonWidth, buttonHeight, margin) {
+            const maxX = containerWidth - buttonWidth - margin;
+            const maxY = containerHeight - buttonHeight - margin;
+            const minX = margin;
+            const minY = margin;
+            
+            let positions = [];
+            let attempts = 0;
+            const maxAttempts = 50;
+            
+            while (positions.length < 2 && attempts < maxAttempts) {
+                attempts++;
+                
+                const x = Math.random() * (maxX - minX) + minX;
+                const y = Math.random() * (maxY - minY) + minY;
+                
+                if (isValidPosition(x, y, positions, buttonWidth, buttonHeight)) {
+                    positions.push({ x, y });
+                }
+            }
+            
+            if (positions.length < 2) {
+                positions = [
+                    { x: containerWidth * 0.25 - buttonWidth/2, y: containerHeight/2 - buttonHeight/2 },
+                    { x: containerWidth * 0.75 - buttonWidth/2, y: containerHeight/2 - buttonHeight/2 }
+                ];
+            }
+            
+            return positions;
+        }
+        
+        function isValidPosition(x, y, existingPositions, buttonWidth, buttonHeight) {
+            for (const pos of existingPositions) {
+                const overlapX = Math.abs(x - pos.x) < buttonWidth + 20;
+                const overlapY = Math.abs(y - pos.y) < buttonHeight + 20;
+                
+                if (overlapX && overlapY) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        function createButton(choice, text, className, position) {
+            const button = document.createElement('button');
+            button.className = `btn-decision ${className}`;
+            button.textContent = text;
+            button.style.left = `${position.x}px`;
+            button.style.top = `${position.y}px`;
+            button.addEventListener('click', () => recordDecision(choice));
+            buttonsContainer.appendChild(button);
+        }
+        
+        function startTimer() {
+            let seconds = currentSession.timerValue;
+            timeLeft.textContent = seconds;
+            timerDisplay.style.display = 'block';
+            
+            if (currentSession.timerInterval) {
+                clearInterval(currentSession.timerInterval);
+            }
+            
+            currentSession.timerInterval = setInterval(() => {
+                seconds--;
+                timeLeft.textContent = seconds;
+                
+                updateTimerVisuals(seconds);
+                
+                if (seconds <= 0) {
+                    clearInterval(currentSession.timerInterval);
+                    timerDisplay.style.display = 'none';
+                    recordDecision('timeout');
+                }
+            }, 1000);
+        }
+        
+        function updateTimerVisuals(seconds) {
+            if (seconds <= 1) {
+                timerDisplay.style.color = 'var(--accent-red)';
+            } else if (seconds <= 3) {
+                timerDisplay.style.color = '#f6ad55';
             } else {
-                analise = analises.equilibrado[Math.floor(Math.random() * analises.equilibrado.length)];
+                timerDisplay.style.color = 'var(--accent-red)';
             }
-
-            // PERSONALIZAR COM NOME
-            analise = `${usuario.nome}, ${analise.toLowerCase()}`;
-
-            document.getElementById('analise').textContent = analise;
-            document.getElementById('resultado').style.display = 'block';
         }
+        
+        function recordDecision(choice) {
+            clearTimer();
+            
+            const decisionData = createDecisionRecord(choice);
+            currentSession.decisions.push(decisionData);
+            currentSession.currentDecision++;
+            
+            showDecisionFeedback(choice);
+            
+            setTimeout(() => {
+                prepareNextDecision();
+            }, 800);
+        }
+        
+        function clearTimer() {
+            if (currentSession.timerInterval) {
+                clearInterval(currentSession.timerInterval);
+                currentSession.timerInterval = null;
+                timerDisplay.style.display = 'none';
+            }
+        }
+        
+        function createDecisionRecord(choice) {
+            const buttons = buttonsContainer.querySelectorAll('.btn-decision');
+            const positions = {};
+            
+            buttons.forEach(button => {
+                const color = button.classList.contains('btn-blue') ? 'azul' : 'vermelho';
+                positions[color] = {
+                    left: button.style.left,
+                    top: button.style.top,
+                    offsetLeft: button.offsetLeft,
+                    offsetTop: button.offsetTop
+                };
+            });
+            
+            return {
+                choice: choice,
+                timestamp: new Date(),
+                decisionNumber: currentSession.currentDecision + 1,
+                positions: positions,
+                reactionTime: calculateReactionTime(),
+                sessionId: currentSession.sessionId,
+                viewport: {
+                    width: window.innerWidth,
+                    height: window.innerHeight
+                }
+            };
+        }
+        
+        function calculateReactionTime() {
+            if (currentSession.timerValue > 0) {
+                const remainingTime = parseInt(timeLeft.textContent) || 0;
+                return currentSession.timerValue - remainingTime;
+            }
+            return null;
+        }
+        
+        function showDecisionFeedback(choice) {
+            let feedbackText = '';
+            let feedbackColor = '';
+            
+            if (choice === 'timeout') {
+                feedbackText = "⏰ Tempo esgotado!";
+                feedbackColor = "var(--accent-red)";
+            } else {
+                feedbackText = `✓ ${choice.toUpperCase()}`;
+                feedbackColor = choice === 'azul' ? 'var(--accent-blue)' : 'var(--accent-red)';
+                animateClickedButton(choice);
+            }
+            
+            feedback.textContent = feedbackText;
+            feedback.style.color = feedbackColor;
+        }
+        
+        function animateClickedButton(choice) {
+            const clickedBtn = choice === 'azul' ? 
+                buttonsContainer.querySelector('.btn-blue') : 
+                buttonsContainer.querySelector('.btn-red');
+            
+            if (clickedBtn) {
+                clickedBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    clickedBtn.style.transform = 'scale(1.03)';
+                }, 100);
+            }
+        }
+        
+        /**
+         * Finalizar jogo e gerar relatório IA
+         */
+        function finalizarJogo() {
+            currentSession.endTime = new Date();
+            clearTimer();
+            
+            const validDecisions = currentSession.decisions.filter(d => d.choice !== 'timeout');
+            finalDecisionCount.textContent = validDecisions.length;
+            
+            transitionToResults();
+            
+            // Gerar relatório IA automaticamente
+            setTimeout(() => {
+                generateAIReport();
+            }, 1000);
+        }
+        
+        function transitionToResults() {
+            telaJogo.classList.add('slide-out');
+            setTimeout(() => {
+                telaJogo.style.display = 'none';
+                telaResultado.style.display = 'flex';
+                telaResultado.classList.add('fade-in');
+            }, 300);
+        }
+        
+        /**
+         * Gerar relatório com GPT API
+         */
+        async function generateAIReport() {
+            try {
+                const prompt = createAIPrompt();
+                const response = await callOpenAI(prompt);
+                
+                aiReportContent.innerHTML = `<div class="ai-report-content">${response}</div>`;
+                
+                // Mostrar CTA após relatório
+                setTimeout(() => {
+                    ctaSection.style.display = 'block';
+                    ctaSection.classList.add('fade-in');
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Erro ao gerar relatório:', error);
+                
+                // Fallback para relatório estático
+                const fallbackReport = generateFallbackReport();
+                aiReportContent.innerHTML = `<div class="ai-report-content">${fallbackReport}</div>`;
+                
+                setTimeout(() => {
+                    ctaSection.style.display = 'block';
+                    ctaSection.classList.add('fade-in');
+                }, 2000);
+            }
+        }
+        
+        /**
+         * Criar prompt para IA
+         */
+        function createAIPrompt() {
+            const validDecisions = currentSession.decisions.filter(d => d.choice !== 'timeout');
+            const azulCount = validDecisions.filter(d => d.choice === 'azul').length;
+            const vermelhoCount = validDecisions.filter(d => d.choice === 'vermelho').length;
+            const percentualAzul = (azulCount / validDecisions.length) * 100;
+            
+            const duracaoMinutos = Math.round((currentSession.endTime - currentSession.startTime) / 60000);
+            
+            return `Você é um coach de desenvolvimento pessoal especializado em análise de padrões decisórios. 
 
+Analise os dados de ${currentSession.participantName}, ${currentSession.age} anos, ${currentSession.gender}, que está se sentindo ${currentSession.emotion}.
+
+Dados das decisões:
+- Total de decisões válidas: ${validDecisions.length}
+- Escolhas AZUL: ${azulCount} (${percentualAzul.toFixed(1)}%)
+- Escolhas VERMELHO: ${vermelhoCount} (${(100-percentualAzul).toFixed(1)}%)
+- Duração do teste: ${duracaoMinutos} minutos
+- Estado emocional: ${currentSession.emotion}
+
+Crie um relatório motivador e realista de 3-4 parágrafos que:
+1. Reconheça os padrões únicos da pessoa
+2. Conecte com o estado emocional atual
+3. Ofereça insights práticos para crescimento
+4. Seja inspirador mas honesto
+5. Use linguagem acessível e calorosa
+
+Não mencione "científico" ou "pesquisa". Foque em desenvolvimento pessoal e autoconhecimento.
+
+Formato: HTML simples com parágrafos <p> e palavras-chave em <strong>.`;
+        }
+        
+        /**
+         * Chamar OpenAI API
+         */
+        async function callOpenAI(prompt) {
+            const response = await fetch(OPENAI_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${OPENAI_API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: [
+                        {
+                            role: 'user',
+                            content: prompt
+                        }
+                    ],
+                    max_tokens: 500,
+                    temperature: 0.7
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return data.choices[0].message.content;
+        }
+        
+        /**
+         * Relatório fallback (caso API falhe)
+         */
+        function generateFallbackReport() {
+            const validDecisions = currentSession.decisions.filter(d => d.choice !== 'timeout');
+            const azulCount = validDecisions.filter(d => d.choice === 'azul').length;
+            const percentualAzul = (azulCount / validDecisions.length) * 100;
+            
+            let relatorio = `<p>Olá, <strong>${currentSession.participantName}</strong>! Seus padrões revelam aspectos fascinantes da sua personalidade.</p>`;
+            
+            if (percentualAzul >= 60) {
+                relatorio += `<p>Você demonstra uma <strong>preferência por estabilidade e reflexão</strong>. Com ${percentualAzul.toFixed(1)}% das escolhas em azul, você tende a buscar segurança e consistência em suas decisões. Isso indica uma mente que valoriza a análise antes da ação.</p>`;
+                relatorio += `<p>Considerando que você está se sentindo <strong>${currentSession.emotion}</strong>, essa tendência pode ser tanto uma força quanto um ponto de atenção. Sua natureza reflexiva é um grande trunfo para decisões importantes.</p>`;
+            } else if (percentualAzul <= 40) {
+                relatorio += `<p>Você revela uma <strong>natureza intuitiva e adaptável</strong>. Com ${(100-percentualAzul).toFixed(1)}% das escolhas em vermelho, você segue mais o coração que a mente, o que indica coragem para abraçar mudanças e novidades.</p>`;
+                relatorio += `<p>Estando <strong>${currentSession.emotion}</strong> hoje, sua capacidade de agir por impulso pode ser canalizada de forma muito positiva. Você tem o dom de se adaptar rapidamente às situações.</p>`;
+            } else {
+                relatorio += `<p>Você possui um <strong>equilíbrio raro entre razão e emoção</strong>. Suas escolhas mostram que você consegue alternar entre análise cuidadosa e ação intuitiva conforme a situação exige.</p>`;
+                relatorio += `<p>Mesmo se sentindo <strong>${currentSession.emotion}</strong>, você mantém essa flexibilidade mental admirável. Isso é um indicativo de maturidade emocional e adaptabilidade.</p>`;
+            }
+            
+            relatorio += `<p><strong>Próximos passos:</strong> Continue explorando seus padrões. O autoconhecimento é uma jornada contínua, e você já deu um passo importante hoje. Cada decisão revela um pouco mais sobre quem você realmente é.</p>`;
+            
+            return relatorio;
+        }
+        
+        /**
+         * Redirecionar para versão premium
+         */
+        function redirectToPremium() {
+            // Aqui você pode redirecionar para sua página de vendas
+            // Por enquanto, vamos simular
+            alert('🚀 Em breve! Estamos preparando uma experiência incrível para você.\n\nDeixe seu email em mindkapa.com para ser notificado quando lançarmos!');
+            
+            // Exemplo de redirecionamento:
+            // window.open('https://mindkapa.com/premium', '_blank');
+        }
+        
+        /**
+         * Download CSV (mantido para coleta de dados)
+         */
+        function downloadCSV() {
+            const csvContent = generateCSVContent();
+            const filename = generateFilename();
+            
+            try {
+                downloadFile(csvContent, filename);
+            } catch (error) {
+                console.error('Erro no download:', error);
+                alert('Erro ao gerar arquivo. Tente novamente.');
+            }
+        }
+        
+        function generateCSVContent() {
+            let csv = `# Kappity - Seus Dados Pessoais de Padrões\n`;
+            csv += `# Sessão ID: ${currentSession.sessionId}\n`;
+            csv += `# Nome: ${currentSession.participantName}\n`;
+            csv += `# Idade: ${currentSession.age}\n`;
+            csv += `# Gênero: ${currentSession.gender}\n`;
+            csv += `# Estado emocional: ${currentSession.emotion}\n`;
+            csv += `# Data: ${currentSession.startTime.toISOString()}\n`;
+            csv += `# Duração: ${Math.round((currentSession.endTime - currentSession.startTime) / 1000)}s\n`;
+            csv += `# Total decisões: ${currentSession.decisions.length}\n`;
+            csv += `#\n`;
+            csv += "numero,escolha,timestamp,tempo_reacao,posicao_azul_left,posicao_azul_top,posicao_vermelho_left,posicao_vermelho_top\n";
+            
+            currentSession.decisions.forEach(decision => {
+                const timestamp = decision.timestamp.toISOString();
+                const azulPos = decision.positions.azul;
+                const vermelhoPos = decision.positions.vermelho;
+                const reactionTime = decision.reactionTime || '';
+                
+                csv += `${decision.decisionNumber},${decision.choice},${timestamp},${reactionTime},"${azulPos.left}","${azulPos.top}","${vermelhoPos.left}","${vermelhoPos.top}"\n`;
+            });
+            
+            return csv;
+        }
+        
+        function generateFilename() {
+            const dateStr = currentSession.startTime.toISOString().slice(0, 10);
+            const nameStr = currentSession.participantName.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+            return `kappity_${dateStr}_${nameStr}.csv`;
+        }
+        
+        function downloadFile(content, filename) {
+            const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+            
+            if (navigator.msSaveBlob) {
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                
+                link.setAttribute('href', url);
+                link.setAttribute('download', filename);
+                link.style.visibility = 'hidden';
+                
+                document.body.appendChild(link);
+                link.click();
+                
+                showManualDownload(url, filename);
+                
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                }, 30000);
+            }
+        }
+        
+        function showManualDownload(url, filename) {
+            setTimeout(() => {
+                downloadInfo.style.display = 'block';
+                manualDownloadLink.href = url;
+                manualDownloadLink.download = filename;
+                manualDownloadLink.textContent = filename;
+            }, 1000);
+        }
+        
+        /**
+         * Reiniciar aplicação
+         */
         function reiniciar() {
-            rodada = 1;
-            escolhas = [];
-            document.getElementById('rodada').textContent = '1';
-            document.getElementById('resultado').style.display = 'none';
+            currentSession = {
+                participantName: "",
+                age: "",
+                gender: "",
+                emotion: "",
+                decisionCount: 50,
+                useTimer: "no",
+                timerValue: 0,
+                decisions: [],
+                currentDecision: 0,
+                startTime: null,
+                endTime: null,
+                timerInterval: null,
+                sessionId: null,
+                userAgent: navigator.userAgent,
+                screenResolution: `${screen.width}x${screen.height}`,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+            };
+            
+            resetForm();
+            resetInterface();
+            returnToStart();
         }
+        
+        function resetForm() {
+            nomeInput.value = '';
+            idadeInput.value = '';
+            generoSelect.value = '';
+            emocaoSelect.value = '';
+            decisoesInput.value = '50';
+            timerSelect.value = 'no';
+        }
+        
+        function resetInterface() {
+            downloadInfo.style.display = 'none';
+            ctaSection.style.display = 'none';
+            buttonsContainer.innerHTML = '';
+            feedback.textContent = '';
+            progressFill.style.width = '0%';
+            
+            [nomeInput, idadeInput, generoSelect, emocaoSelect, decisoesInput].forEach(field => {
+                field.classList.remove('input-error', 'input-success');
+            });
+        }
+        
+        function returnToStart() {
+            telaResultado.style.display = 'none';
+            telaCadastro.style.display = 'block';
+            telaCadastro.classList.remove('slide-out');
+            telaCadastro.classList.add('fade-in');
+            nomeInput.focus();
+        }
+        
+        // ===== INICIALIZAÇÃO =====
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+        
+        function initializeApp() {
+            nomeInput.focus();
+            setupValidationListeners();
+            
+            console.log('Kappity v2.0 - Ferramenta de Evolução Pessoal Inicializada');
+        }
+        
+        function setupValidationListeners() {
+            idadeInput.addEventListener('input', function() {
+                validateFieldOnInput(this, 12, 120);
+            });
+            
+            decisoesInput.addEventListener('input', function() {
+                validateFieldOnInput(this, 30, 200);
+            });
+            
+            nomeInput.addEventListener('input', function() {
+                validateNameOnInput(this);
+            });
+        }
+        
+        function validateFieldOnInput(field, min, max) {
+            const valor = parseInt(field.value);
+            if (valor && (valor < min || valor > max)) {
+                field.classList.add('input-error');
+                field.classList.remove('input-success');
+            } else if (valor) {
+                field.classList.add('input-success');
+                field.classList.remove('input-error');
+            } else {
+                field.classList.remove('input-error', 'input-success');
+            }
+        }
+        
+        function validateNameOnInput(field) {
+            const valor = field.value.trim();
+            if (valor.length >= 2 && valor.length <= 50) {
+                field.classList.add('input-success');
+                field.classList.remove('input-error');
+            } else if (valor.length > 0) {
+                field.classList.add('input-error');
+                field.classList.remove('input-success');
+            } else {
+                field.classList.remove('input-error', 'input-success');
+            }
+        }
+        
+        // Exposer funções globais
+        window.iniciarJogo = iniciarJogo;
+        window.finalizarJogo = finalizarJogo;
+        window.downloadCSV = downloadCSV;
+        window.reiniciar = reiniciar;
+        window.redirectToPremium = redirectToPremium;
+        
     </script>
 </body>
 </html>
