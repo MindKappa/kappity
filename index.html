@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kappity - Medidor de Coerência Decisional</title>
+    <title>Kappity - Seu Espelho Decisional</title>
     <style>
         * {
             margin: 0;
@@ -12,332 +12,153 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .header {
-            background: #2c3e50;
+            font-family: 'Segoe UI', system-ui;
+            background: #000;
             color: white;
-            padding: 30px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tela {
             text-align: center;
+            padding: 20px;
+            max-width: 500px;
         }
 
         .logo {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        .content {
-            padding: 40px;
-        }
-
-        /* TELA INICIAL */
-        #tela-inicial {
-            text-align: center;
-        }
-
-        .btn-iniciar {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2em;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-iniciar:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-        }
-
-        /* TELA LABIRINTO */
-        #tela-labirinto {
-            display: none;
-        }
-
-        .labirinto-contexto {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            border-left: 4px solid #3498db;
-        }
-
-        .pergunta {
-            font-size: 1.3em;
+            font-size: 4em;
             margin-bottom: 20px;
-            color: #2c3e50;
         }
 
-        .escala {
-            margin: 20px 0;
-        }
-
-        .escala label {
-            display: block;
+        h1 {
+            font-size: 2.5em;
             margin-bottom: 10px;
-            font-weight: 600;
-            color: #34495e;
+            background: linear-gradient(45deg, #00f, #f00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .slider-container {
+        .escolhas {
             display: flex;
-            align-items: center;
-            gap: 15px;
+            gap: 20px;
+            margin: 40px 0;
         }
 
-        .slider {
+        .btn-escolha {
             flex: 1;
-            height: 8px;
-            -webkit-appearance: none;
-            background: #ecf0f1;
-            border-radius: 5px;
-            outline: none;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #3498db;
-            cursor: pointer;
-        }
-
-        .valor-slider {
-            min-width: 30px;
-            text-align: center;
-            font-weight: bold;
-            color: #3498db;
-        }
-
-        .botoes-navegacao {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-        }
-
-        .btn {
-            padding: 12px 25px;
+            padding: 30px;
             border: none;
-            border-radius: 25px;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 1em;
             transition: all 0.3s ease;
         }
 
-        .btn-voltar {
-            background: #95a5a6;
-            color: white;
+        .azul { background: #00f; color: white; }
+        .vermelho { background: #f00; color: white; }
+
+        .btn-escolha:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
         }
 
-        .btn-proximo {
-            background: #27ae60;
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        /* PROGRESSO */
-        .barra-progresso {
-            height: 6px;
-            background: #ecf0f1;
-            border-radius: 3px;
+        .contador {
+            font-size: 1.2em;
             margin: 20px 0;
-            overflow: hidden;
         }
 
-        .progresso {
-            height: 100%;
-            background: #3498db;
-            width: 0%;
-            transition: width 0.3s ease;
+        #reiniciar {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .resultado {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #222;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">🧠</div>
-            <h1>Kappity</h1>
-            <p>Medidor de Coerência Decisional</p>
+    <div class="tela" id="tela-jogo">
+        <div class="logo">🎮</div>
+        <h1>KAPPITY</h1>
+        <p>Escolha instintivamente. Sem pensar.</p>
+        
+        <div class="escolhas">
+            <button class="btn-escolha azul" onclick="escolher('azul')">AZUL</button>
+            <button class="btn-escolha vermelho" onclick="escolher('vermelho')">VERMELHO</button>
         </div>
 
-        <div class="content">
-            <!-- TELA INICIAL -->
-            <div id="tela-inicial">
-                <h2>Bem-vindo ao MCD</h2>
-                <p>Este instrumento analisa padrões de coerência em suas decisões através de situações hipotéticas.</p>
-                
-                <div style="text-align: left; margin: 30px 0;">
-                    <h3>🎯 Como funciona:</h3>
-                    <ul style="margin: 15px 0; padding-left: 20px;">
-                        <li>Responda a 3 situações decisórias</li>
-                        <li>Use as escalas para indicar sua reação</li>
-                        <li>Receba análise de coerência personalizada</li>
-                    </ul>
-                </div>
+        <div class="contador">
+            Rodada: <span id="rodada">1</span>/10
+        </div>
 
-                <button class="btn-iniciar" onclick="iniciarTeste()">Iniciar Análise MCD</button>
-            </div>
-
-            <!-- TELA LABIRINTO -->
-            <div id="tela-labirinto">
-                <div class="barra-progresso">
-                    <div class="progresso" id="barra-progresso"></div>
-                </div>
-
-                <div class="labirinto-contexto">
-                    <h3 id="labirinto-titulo">Situação Decisória</h3>
-                    <p id="labirinto-contexto">Carregando contexto...</p>
-                </div>
-
-                <div class="pergunta" id="labirinto-pergunta">Como você reagiria nesta situação?</div>
-
-                <div id="escalas-container">
-                    <!-- As escalas serão geradas dinamicamente -->
-                </div>
-
-                <div class="botoes-navegacao">
-                    <button class="btn btn-voltar" onclick="labirintoAnterior()">← Voltar</button>
-                    <button class="btn btn-proximo" onclick="proximoLabirinto()">Próximo →</button>
-                </div>
-            </div>
+        <div class="resultado" id="resultado">
+            <h2>🔮 Padrão Detectado</h2>
+            <p id="analise">Analisando suas escolhas...</p>
+            <button id="reiniciar" onclick="reiniciar()">Jogar Novamente</button>
         </div>
     </div>
 
     <script>
-        // BANCO DE LABIRINTOS DECISIONAIS
-        const labirintos = [
-            {
-                id: 1,
-                titulo: "Decisão Profissional",
-                contexto: "Você recebe uma oferta de emprego em outra cidade. O salário é 30% maior, mas você teria que deixar familiares e amigos próximos.",
-                pergunta: "Qual seria seu grau de convicção nesta decisão?",
-                escalas: [
-                    {
-                        pergunta: "Consistência temporal: Esta decisão alinha com seus planos de longo prazo?",
-                        min: "Totalmente divergente",
-                        max: "Perfeitamente alinhada"
-                    },
-                    {
-                        pergunta: "Alinhamento valores: A oportunidade respeita seus princípios pessoais?",
-                        min: "Conflito total",
-                        max: "Alinhamento completo"
-                    },
-                    {
-                        pergunta: "Adaptabilidade: Você se vê adaptando-se bem à nova realidade?",
-                        min: "Muito difícil",
-                        max: "Muito fácil"
-                    }
-                ]
-            },
-            {
-                id: 2,
-                titulo: "Dilema Ético",
-                contexto: "Um colega de trabalho comete um erro grave que pode prejudicar um projeto importante. Ele pede para você encobrir o problema.",
-                pergunta: "Como você lidaria com esta situação?",
-                escalas: [
-                    {
-                        pergunta: "Integridade narrativa: Sua ação seria consistente com quem você é?",
-                        min: "Completamente fora do personagem",
-                        max: "Totalmente coerente"
-                    },
-                    {
-                        pergunta: "Estabilidade emocional: O conflito interno seria manejável?",
-                        min: "Me destruiria emocionalmente",
-                        max: "Lidaria com naturalidade"
-                    }
-                ]
-            }
-        ];
+        let rodada = 1;
+        let escolhas = [];
+        const totalRodadas = 10;
 
-        let labirintoAtual = 0;
-        let respostas = {};
+        // PALAVRAS ALEATÓRIAS PARA EVITAR VIÉS
+        const palavrasAzul = ['Serenidade', 'Profundidade', 'Confiança', 'Lógica', 'Paz'];
+        const palavrasVermelho = ['Paixão', 'Ação', 'Intuição', 'Energia', 'Risco'];
 
-        function iniciarTeste() {
-            document.getElementById('tela-inicial').style.display = 'none';
-            document.getElementById('tela-labirinto').style.display = 'block';
-            carregarLabirinto(0);
-        }
-
-        function carregarLabirinto(index) {
-            labirintoAtual = index;
-            const labirinto = labirintos[index];
+        function escolher(cor) {
+            escolhas.push(cor);
             
-            // Atualizar interface
-            document.getElementById('labirinto-titulo').textContent = labirinto.titulo;
-            document.getElementById('labirinto-contexto').textContent = labirinto.contexto;
-            document.getElementById('labirinto-pergunta').textContent = labirinto.pergunta;
-            
-            // Atualizar progresso
-            const progresso = ((index + 1) / labirintos.length) * 100;
-            document.getElementById('barra-progresso').style.width = progresso + '%';
-            
-            // Gerar escalas
-            const container = document.getElementById('escalas-container');
-            container.innerHTML = '';
-            
-            labirinto.escalas.forEach((escala, i) => {
-                const escalaId = `labirinto_${index}_escala_${i}`;
-                const valorSalvo = respostas[escalaId] || 50;
-                
-                const escalaHTML = `
-                    <div class="escala">
-                        <label>${escala.pergunta}</label>
-                        <div class="slider-container">
-                            <span style="font-size: 0.9em; color: #7f8c8d;">${escala.min}</span>
-                            <input type="range" min="0" max="100" value="${valorSalvo}" 
-                                   class="slider" id="${escalaId}"
-                                   oninput="atualizarValor(this)">
-                            <span style="font-size: 0.9em; color: #7f8c8d;">${escala.max}</span>
-                            <span class="valor-slider" id="valor_${escalaId}">${valorSalvo}</span>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += escalaHTML;
-            });
-        }
+            // EFEITO VISUAL
+            document.querySelector(`.${cor}`).style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                document.querySelector(`.${cor}`).style.transform = 'scale(1)';
+            }, 100);
 
-        function atualizarValor(slider) {
-            const valorSpan = document.getElementById('valor_' + slider.id);
-            valorSpan.textContent = slider.value;
-            respostas[slider.id] = parseInt(slider.value);
-        }
+            rodada++;
+            document.getElementById('rodada').textContent = rodada;
 
-        function labirintoAnterior() {
-            if (labirintoAtual > 0) {
-                carregarLabirinto(labirintoAtual - 1);
+            if (rodada > totalRodadas) {
+                finalizarJogo();
             }
         }
 
-        function proximoLabirinto() {
-            if (labirintoAtual < labirintos.length - 1) {
-                carregarLabirinto(labirintoAtual + 1);
+        function finalizarJogo() {
+            // ANÁLISE SIMPLES MAS "UAU"
+            const percentualAzul = (escolhas.filter(c => c === 'azul').length / totalRodadas) * 100;
+            
+            let analise = '';
+            if (percentualAzul > 70) {
+                analise = `Você é ${palavrasAzul[Math.floor(Math.random() * palavrasAzul.length)]}. Busca estabilidade e método em suas decisões.`;
+            } else if (percentualAzul < 30) {
+                analise = `Você é ${palavrasVermelho[Math.floor(Math.random() * palavrasVermelho.length)]}. Age por impulso e segue a intuição.`;
             } else {
-                // Último labirinto - preparar para análise
-                alert('Todos os labirintos respondidos! Pronto para análise...');
-                console.log('Respostas coletadas:', respostas);
-                // Aqui virá a integração com a IA
+                analise = "Equilíbrio raro! Você adapta-se ao contexto, nem sempre razão, nem sempre emoção.";
             }
+
+            document.getElementById('analise').textContent = analise;
+            document.getElementById('resultado').style.display = 'block';
+        }
+
+        function reiniciar() {
+            rodada = 1;
+            escolhas = [];
+            document.getElementById('rodada').textContent = '1';
+            document.getElementById('resultado').style.display = 'none';
         }
     </script>
 </body>
