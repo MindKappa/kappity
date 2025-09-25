@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kappity - Seu Espelho Decisional</title>
+    <title>Kappity - Conheça seus padrões</title>
     <style>
         * {
             margin: 0;
@@ -13,101 +13,210 @@
 
         body {
             font-family: 'Segoe UI', system-ui;
-            background: #000;
-            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
-        .tela {
-            text-align: center;
-            padding: 20px;
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
             max-width: 500px;
+            width: 100%;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
         }
 
         .logo {
-            font-size: 4em;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        /* TELA CADASTRO */
+        .form-group {
             margin-bottom: 20px;
         }
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #00f, #f00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* TELA JOGO */
+        #tela-jogo {
+            display: none;
+            text-align: center;
         }
 
         .escolhas {
             display: flex;
-            gap: 20px;
-            margin: 40px 0;
+            gap: 15px;
+            margin: 30px 0;
         }
 
         .btn-escolha {
             flex: 1;
-            padding: 30px;
+            padding: 25px;
             border: none;
             border-radius: 15px;
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .azul { background: #00f; color: white; }
-        .vermelho { background: #f00; color: white; }
+        .azul { 
+            background: #3498db; 
+            color: white; 
+        }
+        
+        .vermelho { 
+            background: #e74c3c; 
+            color: white; 
+        }
 
         .btn-escolha:hover {
-            transform: scale(1.1);
-            filter: brightness(1.2);
+            transform: scale(1.05);
+            filter: brightness(1.1);
         }
 
         .contador {
-            font-size: 1.2em;
+            font-size: 1.1em;
+            color: #7f8c8d;
             margin: 20px 0;
-        }
-
-        #reiniciar {
-            background: #333;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin-top: 20px;
         }
 
         .resultado {
             display: none;
             margin-top: 30px;
             padding: 20px;
-            background: #222;
+            background: #f8f9fa;
             border-radius: 10px;
+            text-align: left;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="tela" id="tela-jogo">
-        <div class="logo">🎮</div>
-        <h1>KAPPITY</h1>
-        <p>Escolha instintivamente. Sem pensar.</p>
-        
-        <div class="escolhas">
-            <button class="btn-escolha azul" onclick="escolher('azul')">AZUL</button>
-            <button class="btn-escolha vermelho" onclick="escolher('vermelho')">VERMELHO</button>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🧠</div>
+            <h1>Kappity</h1>
+            <p>Conheça seus padrões</p>
         </div>
 
-        <div class="contador">
-            Rodada: <span id="rodada">1</span>/10
-        </div>
+        <div class="content">
+            <!-- TELA CADASTRO -->
+            <div id="tela-cadastro">
+                <h2>Antes de começar</h2>
+                <p>Preencha rapidamente para personalizarmos sua experiência:</p>
+                
+                <div class="form-group">
+                    <label for="nome">Seu nome ou apelido:</label>
+                    <input type="text" id="nome" placeholder="Como prefere ser chamado?">
+                </div>
 
-        <div class="resultado" id="resultado">
-            <h2>🔮 Padrão Detectado</h2>
-            <p id="analise">Analisando suas escolhas...</p>
-            <button id="reiniciar" onclick="reiniciar()">Jogar Novamente</button>
+                <div class="form-group">
+                    <label for="idade">Idade:</label>
+                    <input type="number" id="idade" min="12" max="120" placeholder="Sua idade">
+                </div>
+
+                <div class="form-group">
+                    <label for="genero">Gênero:</label>
+                    <select id="genero">
+                        <option value="">Selecione</option>
+                        <option value="homem">Homem</option>
+                        <option value="mulher">Mulher</option>
+                        <option value="outro">Outro/Prefiro não dizer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="emocao">Como está se sentindo agora?</label>
+                    <select id="emocao">
+                        <option value="">Selecione</option>
+                        <option value="cansado">Cansado(a)</option>
+                        <option value="feliz">Feliz</option>
+                        <option value="normal">Normal</option>
+                        <option value="estressado">Estressado(a)</option>
+                        <option value="dor_cabeca">Com dor de cabeça</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <button class="btn" onclick="iniciarJogo()">Começar a descobrir meus padrões</button>
+            </div>
+
+            <!-- TELA JOGO -->
+            <div id="tela-jogo">
+                <h2 id="saudacao">Vamos começar!</h2>
+                <p>Escolha instantaneamente. Sem pensar muito.</p>
+                
+                <div class="escolhas">
+                    <button class="btn-escolha azul" onclick="escolher('azul')">AZUL</button>
+                    <button class="btn-escolha vermelho" onclick="escolher('vermelho')">VERMELHO</button>
+                </div>
+
+                <div class="contador">
+                    Rodada: <span id="rodada">1</span>/10
+                </div>
+
+                <div class="resultado" id="resultado">
+                    <h2>🎯 Seu padrão detectado</h2>
+                    <p id="analise">Analisando suas escolhas...</p>
+                    <button class="btn" onclick="reiniciar()">Descobrir mais padrões</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -115,40 +224,83 @@
         let rodada = 1;
         let escolhas = [];
         const totalRodadas = 10;
+        let usuario = {};
 
-        // PALAVRAS ALEATÓRIAS PARA EVITAR VIÉS
-        const palavrasAzul = ['Serenidade', 'Profundidade', 'Confiança', 'Lógica', 'Paz'];
-        const palavrasVermelho = ['Paixão', 'Ação', 'Intuição', 'Energia', 'Risco'];
+        // BANCO DE ANÁLISES PERSONALIZADAS
+        const analises = {
+            azulDominante: [
+                "Você busca estabilidade e confiança nas suas decisões",
+                "Seu padrão mostra preferência por abordagens metódicas",
+                "Tende a analisar antes de agir, valorizando segurança"
+            ],
+            vermelhoDominante: [
+                "Sua intuição guia muitas das suas escolhas",
+                "Padrão de ação rápida e adaptabilidade",
+                "Você segue mais a emoção do momento que planos fixos"
+            ],
+            equilibrado: [
+                "Raro equilíbrio entre razão e emoção",
+                "Você se adapta ao contexto de forma notável",
+                "Nem sempre método, nem sempre impulso - sabedoria contextual"
+            ]
+        };
+
+        function iniciarJogo() {
+            // VALIDAR DADOS
+            const nome = document.getElementById('nome').value;
+            const idade = document.getElementById('idade').value;
+            const genero = document.getElementById('genero').value;
+            const emocao = document.getElementById('emocao').value;
+
+            if (!nome || !idade || !genero || !emocao) {
+                alert('Por favor, preencha todos os campos para começarmos!');
+                return;
+            }
+
+            usuario = { nome, idade, genero, emocao };
+            
+            // ATUALIZAR SAUDAÇÃO
+            document.getElementById('saudacao').textContent = `Vamos lá, ${nome}!`;
+            
+            // TROCAR TELAS
+            document.getElementById('tela-cadastro').style.display = 'none';
+            document.getElementById('tela-jogo').style.display = 'block';
+        }
 
         function escolher(cor) {
+            // EFEITO VISUAL
+            const btn = document.querySelector(`.${cor}`);
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => btn.style.transform = 'scale(1)', 150);
+
+            // REGISTRAR ESCOLHA
             escolhas.push(cor);
             
-            // EFEITO VISUAL
-            document.querySelector(`.${cor}`).style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                document.querySelector(`.${cor}`).style.transform = 'scale(1)';
-            }, 100);
-
+            // ATUALIZAR RODADA
             rodada++;
             document.getElementById('rodada').textContent = rodada;
 
+            // VERIFICAR FIM DO JOGO
             if (rodada > totalRodadas) {
                 finalizarJogo();
             }
         }
 
         function finalizarJogo() {
-            // ANÁLISE SIMPLES MAS "UAU"
+            // CALCULAR PADRÃO
             const percentualAzul = (escolhas.filter(c => c === 'azul').length / totalRodadas) * 100;
             
             let analise = '';
-            if (percentualAzul > 70) {
-                analise = `Você é ${palavrasAzul[Math.floor(Math.random() * palavrasAzul.length)]}. Busca estabilidade e método em suas decisões.`;
-            } else if (percentualAzul < 30) {
-                analise = `Você é ${palavrasVermelho[Math.floor(Math.random() * palavrasVermelho.length)]}. Age por impulso e segue a intuição.`;
+            if (percentualAzul >= 60) {
+                analise = analises.azulDominante[Math.floor(Math.random() * analises.azulDominante.length)];
+            } else if (percentualAzul <= 40) {
+                analise = analises.vermelhoDominante[Math.floor(Math.random() * analises.vermelhoDominante.length)];
             } else {
-                analise = "Equilíbrio raro! Você adapta-se ao contexto, nem sempre razão, nem sempre emoção.";
+                analise = analises.equilibrado[Math.floor(Math.random() * analises.equilibrado.length)];
             }
+
+            // PERSONALIZAR COM NOME
+            analise = `${usuario.nome}, ${analise.toLowerCase()}`;
 
             document.getElementById('analise').textContent = analise;
             document.getElementById('resultado').style.display = 'block';
