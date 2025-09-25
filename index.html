@@ -5,50 +5,340 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kappity - Medidor de Coerência Decisional</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', system-ui;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-            background: #f8f9fa;
-            color: #333;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
+
         .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
             text-align: center;
-            margin-bottom: 40px;
         }
+
         .logo {
             font-size: 3em;
-            margin: 0;
+            margin-bottom: 10px;
         }
-        .mission {
-            background: white;
-            padding: 30px;
+
+        .content {
+            padding: 40px;
+        }
+
+        /* TELA INICIAL */
+        #tela-inicial {
+            text-align: center;
+        }
+
+        .btn-iniciar {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-iniciar:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* TELA LABIRINTO */
+        #tela-labirinto {
+            display: none;
+        }
+
+        .labirinto-contexto {
+            background: #f8f9fa;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+
+        .pergunta {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .escala {
+            margin: 20px 0;
+        }
+
+        .escala label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slider {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #ecf0f1;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+        }
+
+        .valor-slider {
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        .botoes-navegacao {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-voltar {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-proximo {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* PROGRESSO */
+        .barra-progresso {
+            height: 6px;
+            background: #ecf0f1;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progresso {
+            height: 100%;
+            background: #3498db;
+            width: 0%;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 class="logo">🧠</h1>
-        <h1>Kappity</h1>
-        <p>Medidor de Coerência Decisional</p>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🧠</div>
+            <h1>Kappity</h1>
+            <p>Medidor de Coerência Decisional</p>
+        </div>
+
+        <div class="content">
+            <!-- TELA INICIAL -->
+            <div id="tela-inicial">
+                <h2>Bem-vindo ao MCD</h2>
+                <p>Este instrumento analisa padrões de coerência em suas decisões através de situações hipotéticas.</p>
+                
+                <div style="text-align: left; margin: 30px 0;">
+                    <h3>🎯 Como funciona:</h3>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li>Responda a 3 situações decisórias</li>
+                        <li>Use as escalas para indicar sua reação</li>
+                        <li>Receba análise de coerência personalizada</li>
+                    </ul>
+                </div>
+
+                <button class="btn-iniciar" onclick="iniciarTeste()">Iniciar Análise MCD</button>
+            </div>
+
+            <!-- TELA LABIRINTO -->
+            <div id="tela-labirinto">
+                <div class="barra-progresso">
+                    <div class="progresso" id="barra-progresso"></div>
+                </div>
+
+                <div class="labirinto-contexto">
+                    <h3 id="labirinto-titulo">Situação Decisória</h3>
+                    <p id="labirinto-contexto">Carregando contexto...</p>
+                </div>
+
+                <div class="pergunta" id="labirinto-pergunta">Como você reagiria nesta situação?</div>
+
+                <div id="escalas-container">
+                    <!-- As escalas serão geradas dinamicamente -->
+                </div>
+
+                <div class="botoes-navegacao">
+                    <button class="btn btn-voltar" onclick="labirintoAnterior()">← Voltar</button>
+                    <button class="btn btn-proximo" onclick="proximoLabirinto()">Próximo →</button>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="mission">
-        <h2>🚀 Em Desenvolvimento</h2>
-        <p><strong>Primeiro produto MindKappa</strong> - Em breve uma ferramenta para evolução cognitiva através da ciência.</p>
-        
-        <h3>🎯 Nosso Propósito:</h3>
-        <ul>
-            <li>Autoconhecimento através de análise decisional</li>
-            <li>Ferramenta ética para desenvolvimento pessoal</li>
-            <li>Baseado em psicologia cognitiva e padrões conscientes</li>
-        </ul>
-        
-        <p><strong>URL oficial:</strong> kappity.fit (em breve)</p>
-        <p><strong>Domínio principal:</strong> mindkapa.com</p>
-    </div>
+
+    <script>
+        // BANCO DE LABIRINTOS DECISIONAIS
+        const labirintos = [
+            {
+                id: 1,
+                titulo: "Decisão Profissional",
+                contexto: "Você recebe uma oferta de emprego em outra cidade. O salário é 30% maior, mas você teria que deixar familiares e amigos próximos.",
+                pergunta: "Qual seria seu grau de convicção nesta decisão?",
+                escalas: [
+                    {
+                        pergunta: "Consistência temporal: Esta decisão alinha com seus planos de longo prazo?",
+                        min: "Totalmente divergente",
+                        max: "Perfeitamente alinhada"
+                    },
+                    {
+                        pergunta: "Alinhamento valores: A oportunidade respeita seus princípios pessoais?",
+                        min: "Conflito total",
+                        max: "Alinhamento completo"
+                    },
+                    {
+                        pergunta: "Adaptabilidade: Você se vê adaptando-se bem à nova realidade?",
+                        min: "Muito difícil",
+                        max: "Muito fácil"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                titulo: "Dilema Ético",
+                contexto: "Um colega de trabalho comete um erro grave que pode prejudicar um projeto importante. Ele pede para você encobrir o problema.",
+                pergunta: "Como você lidaria com esta situação?",
+                escalas: [
+                    {
+                        pergunta: "Integridade narrativa: Sua ação seria consistente com quem você é?",
+                        min: "Completamente fora do personagem",
+                        max: "Totalmente coerente"
+                    },
+                    {
+                        pergunta: "Estabilidade emocional: O conflito interno seria manejável?",
+                        min: "Me destruiria emocionalmente",
+                        max: "Lidaria com naturalidade"
+                    }
+                ]
+            }
+        ];
+
+        let labirintoAtual = 0;
+        let respostas = {};
+
+        function iniciarTeste() {
+            document.getElementById('tela-inicial').style.display = 'none';
+            document.getElementById('tela-labirinto').style.display = 'block';
+            carregarLabirinto(0);
+        }
+
+        function carregarLabirinto(index) {
+            labirintoAtual = index;
+            const labirinto = labirintos[index];
+            
+            // Atualizar interface
+            document.getElementById('labirinto-titulo').textContent = labirinto.titulo;
+            document.getElementById('labirinto-contexto').textContent = labirinto.contexto;
+            document.getElementById('labirinto-pergunta').textContent = labirinto.pergunta;
+            
+            // Atualizar progresso
+            const progresso = ((index + 1) / labirintos.length) * 100;
+            document.getElementById('barra-progresso').style.width = progresso + '%';
+            
+            // Gerar escalas
+            const container = document.getElementById('escalas-container');
+            container.innerHTML = '';
+            
+            labirinto.escalas.forEach((escala, i) => {
+                const escalaId = `labirinto_${index}_escala_${i}`;
+                const valorSalvo = respostas[escalaId] || 50;
+                
+                const escalaHTML = `
+                    <div class="escala">
+                        <label>${escala.pergunta}</label>
+                        <div class="slider-container">
+                            <span style="font-size: 0.9em; color: #7f8c8d;">${escala.min}</span>
+                            <input type="range" min="0" max="100" value="${valorSalvo}" 
+                                   class="slider" id="${escalaId}"
+                                   oninput="atualizarValor(this)">
+                            <span style="font-size: 0.9em; color: #7f8c8d;">${escala.max}</span>
+                            <span class="valor-slider" id="valor_${escalaId}">${valorSalvo}</span>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += escalaHTML;
+            });
+        }
+
+        function atualizarValor(slider) {
+            const valorSpan = document.getElementById('valor_' + slider.id);
+            valorSpan.textContent = slider.value;
+            respostas[slider.id] = parseInt(slider.value);
+        }
+
+        function labirintoAnterior() {
+            if (labirintoAtual > 0) {
+                carregarLabirinto(labirintoAtual - 1);
+            }
+        }
+
+        function proximoLabirinto() {
+            if (labirintoAtual < labirintos.length - 1) {
+                carregarLabirinto(labirintoAtual + 1);
+            } else {
+                // Último labirinto - preparar para análise
+                alert('Todos os labirintos respondidos! Pronto para análise...');
+                console.log('Respostas coletadas:', respostas);
+                // Aqui virá a integração com a IA
+            }
+        }
+    </script>
 </body>
 </html>
